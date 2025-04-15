@@ -2,3 +2,5 @@ flask
 ultralytics
 pillow
 werkzeug
+flask_cors
+gunicorn
