@@ -1,0 +1,3 @@
+[phases.setup] nixPkgs = ['python312', 'gunicorn']
+[phases.install] cmds = ['pip install -r requirements.txt']
+[start] cmd = 'gunicorn app:app --bind 0.0.0.0:$PORT'
