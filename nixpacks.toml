@@ -1,3 +1,26 @@
-[phases.setup] nixPkgs = ['python312', 'gunicorn']
-[phases.install] cmds = ['pip install -r requirements.txt']
-[start] cmd = 'gunicorn app:app --bind 0.0.0.0:$PORT'
+[phases.setup]
+# Install Python dependencies from requirements.txt
+commands = [
+  "pip install --upgrade pip",
+  "pip install -r requirements.txt"
+]
+
+[phases.build]
+# No specific build step is required for this backend
+commands = []
+
+[phases.start]
+# Command to start the backend using Gunicorn
+commands = ["gunicorn app:app --bind 0.0.0.0:$PORT"]
+
+[variables]
+# Environment variables required for the backend
+FLASK_ENV = "production"
+YOLO_MODEL_PATH = "./model/best.pt"
+
+[static]
+# Specify directories that should persist across deployments
+mounts = [
+  { path = "./model", persist = true },
+  { path = "./textures", persist = true }
+]
